@@ -67,3 +67,39 @@ class HomePageViewTests(TestCase):
         # The client is already logged in due to setUp
         response = self.client.get(reverse('home_page'))
         self.assertTemplateUsed(response, 'app/HomePage.html')
+
+
+class CategoryItemsViewTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        # Create a user and log them in
+        User.objects.create_user(username='testuser', password='testpassword123')
+        # Assume you have a setup for creating categories and items in your database
+
+    def test_category_items_view_status_code(self):
+        self.client.login(username='testuser', password='testpassword123')
+        # Assuming '1' is a valid category ID in your test database
+        response = self.client.get(reverse('category_items', args=[1]))
+        self.assertEqual(response.status_code, 200)
+
+    def test_category_items_view_uses_correct_template(self):
+        self.client.login(username='testuser', password='testpassword123')
+        response = self.client.get(reverse('category_items', args=[1]))
+        self.assertTemplateUsed(response, 'app/category_items.html')
+
+
+class ContactViewTests(TestCase):
+    def test_contact_view_get_request(self):
+        response = self.client.get(reverse('contact'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'app/contact.html')
+        self.assertIsInstance(response.context['form'], ContactForm)
+
+    def test_contact_view_post_request_with_valid_data(self):
+        form_data = {
+            'name': 'John Doe',
+            'email': 'john@example.com',
+            'message': 'Hello, this is a test message.'
+        }
+        response = self.client.post(reverse('contact'), form_data)
+        self.assertEqual(response.status_code, 302)
