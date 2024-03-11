@@ -1,0 +1,17 @@
+{% extends "app/layout.html" %}
+{% load static %}
+
+{% block content %}
+    <h1>Welcome to GreenThread!</h1>
+    <div>
+        <div class="category" id="women">Women</div>
+        <div class="category" id="men">Men</div>
+        <div class="category" id="kids">Kids</div>
+        <div class="category" id="oversize">Over Size</div>
+    </div>
+    <button onclick='reloadPage();'>Shop</button>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock %}

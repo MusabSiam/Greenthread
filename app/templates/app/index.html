@@ -1,3 +1,4 @@
+{% extends "app/layout.html" %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,8 +10,8 @@
     <h1>Welcome to GreenThread!</h1>
     <p>Our mission is to promote sustainability by providing a platform for buying and selling used clothes.</p>
     <p>The website is currently under construction. Thank you for your patience.</p>
-    <button onclick="location.href='/login'">Login</button>
-    <!-- Updated Sign Up button to direct to the signup page -->
-    <button onclick="location.href='/signup'">Sign Up</button>
+    <a href="/login" class="button dynamic-link">Login</a>
+    <a href="/signup" class="button dynamic-link">Sign Up</a>
+    <script src="../../static/js/main.js"></script> <!-- Ensure the path to your main.js is correct -->
 </body>
 </html>
