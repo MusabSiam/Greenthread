@@ -3,10 +3,13 @@ Definition of forms.
 """
 
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import get_user_model  # Import get_user_model
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+
+# Assuming your custom user model uses 'email' as a field
+User = get_user_model()  # Get the custom user model
+
 
 class BootstrapAuthenticationForm(AuthenticationForm):
     """Authentication form which uses boostrap CSS."""
@@ -17,14 +20,18 @@ class BootstrapAuthenticationForm(AuthenticationForm):
     password = forms.CharField(label=_("Password"),
                                widget=forms.PasswordInput({
                                    'class': 'form-control',
-                                   'placeholder':'Password'}))
+                                   'placeholder': 'Password'}))
 
-#---
-class SignUpForm(UserCreationForm):#
+
+class ContactForm(forms.Form):
+    name = forms.CharField(max_length=100, label='Your Name')
+    email = forms.EmailField(label='Your Email')
+    message = forms.CharField(widget=forms.Textarea, label='Your Message')
+
+
+class SignUpForm(UserCreationForm):
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
 
-    class Meta:#
-        model = User
+    class Meta:
+        model = User  # Use the custom user model
         fields = ('username', 'email', 'password1', 'password2',)
-    #
-#

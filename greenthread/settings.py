@@ -107,4 +107,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
 
 # Add LOGIN_REDIRECT_URL setting here
-LOGIN_REDIRECT_URL = '/welcome'
+LOGIN_REDIRECT_URL = '/home/'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'app.User'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'musabab@ac.sce.ac.il'
