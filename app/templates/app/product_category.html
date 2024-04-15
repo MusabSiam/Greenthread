@@ -1,0 +1,11 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+<h2>Products in {{ category_name }}</h2>
+{% for product in products %}
+  <div>
+    <h3>{{ product.name }}</h3>
+    <!-- إضافة المزيد من التفاصيل حول المنتج -->
+  </div>
+{% endfor %}
+{% endblock %}

@@ -1,31 +1,19 @@
-{% load static %}
-{% load humanize %}
+{% load static %}  <!-- تأكد من إضافة هذا السطر في البداية -->
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>{% block title %}GreenThread{% endblock title %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <!-- Font Awesome CDN (إذا كنت ترغب في استخدام الأيقونات من Font Awesome) -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> -->
+    <!-- إضافة أي ملفات CSS أو JavaScript أخرى هنا -->
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            background-color: #f0f0f0;
-            position: relative;
-            min-height: 100vh;
-        }
         .welcome-section {
             text-align: center;
             margin-bottom: 20px;
+            margin-top: -300px;
+            padding-top: 0px;
         }
         .categories {
             display: flex;
@@ -99,34 +87,22 @@
 </head>
 <body>
     <div class="welcome-section">
-        <h1>Welcome to GreenThread!</h1>
+        <h1>Welcome to <a href="{% url 'home' %}">GreenThread!</a>!</h1>
     </div>
 
-    <div class="categories">
-        <a href="{% url 'product_category' 'women' %}">Women</a>
-        <a href="{% url 'product_category' 'men' %}">Men</a>
-        <a href="{% url 'product_category' 'kids' %}">Kids</a>
-        <a href="{% url 'product_category' 'over_size' %}">Over Size</a>
-    </div>
+    <main>
+        {% block content %}
+        <!-- المحتوى الفريد لكل صفحة سيذهب هنا -->
+        {% endblock content %}
+    </main>
 
-    <div class="products-display">
-        {% for product in products %}
-        <div class="product">
-            <img src="{{ product.image.url }}" alt="{{ product.name }}" width="200" height="200">
-            <h3>{{ product.name }}</h3>
-            <h4>{{ product.description }}</h4>
-            <p>By: {{ product.user }}</p>
-            <p>Contact seller at:</p>
-            <a href="{% url 'contact_seller' product.id %}">{{product.user.email}}</a>
-            <!-- أضف المزيد من تفاصيل المنتج حسب الحاجة -->
-        </div>
-        {% empty %}
-        <p>Products were not found in this category.</p>
-        {% endfor %}
-    </div>
-
+    <footer>
+        <p>&copy; 2024 GreenThread. All rights reserved.</p>
+    </footer>
+    
+    <!-- شريط المستخدم والتنقل السفلي -->
     <div class="bottom-bar">
-        <a href="{% url 'home_page' %}" class="icon-home">Home</a>
+        <a href="{% url 'home' %}" class="icon-home">Home</a>
         {% if user.is_authenticated %}
         <span class="username">{{ user.username }}</span>
         {% else %}
@@ -137,17 +113,8 @@
     </div>
 
     <script src="{% static 'js/main.js' %}"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const usernameSpan = document.querySelector('.username');
-            if (usernameSpan) {
-                usernameSpan.addEventListener('click', function () {
-                    this.classList.toggle('active');
-                    // توجيه المستخدم إلى صفحة الملف الشخصي
-                    window.location.href = '{% url "view_profile" %}';
-                });
-            }
-        });
-    </script>
+    {% block scripts %}
+    <!-- كتلة سكريبتات JavaScript الخاصة بكل صفحة يمكن تضمينها هنا -->
+    {% endblock scripts %}
 </body>
 </html>

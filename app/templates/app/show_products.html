@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Products</title>
+</head>
+<body>
+    <h2>My Products</h2>
+    {% for product in products %}
+        <div>
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 100px; height: 100px;">
+            <p> Name : {{ product.name }}</p>
+            <p>Category : {{ product.get_category_display }}</p>
+            <form method="delete" action="{% url 'delete_product' product.id %}">
+                {% csrf_token %}
+                <button type="submit">delete</button>
+            </form>
+            <br/>
+        </div>
+    {% endfor %}
+</body>
+</html>

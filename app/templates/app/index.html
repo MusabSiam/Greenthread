@@ -1,17 +1,88 @@
-{% extends "app/layout.html" %}
 <!DOCTYPE html>
-<html lang="en">
+{% load static %}
+<html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GreenThread - Welcome</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-image: url('{% static "home_backgorund.jpeg"%}');
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    border-radius: 20px;
+    align-items: center;
+    height: 100vh;
+    background-position: center;
+    margin: 0;
+  }
+  .login-modal {
+    background-color: rgba(255, 255, 255, .5);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+  }
+  .login-modal h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .login-modal input[type="username"],
+  .login-modal input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  .login-modal input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .login-modal input[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  .login-modal .checkbox {
+    margin-bottom: 10px;
+  }
+  .login-modal .checkbox label {
+    cursor: pointer;
+  }
+  .login-modal .checkbox input {
+    margin-right: 5px;
+  }
+  .login-modal .help-links {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .login-modal .register {
+    text-align: center;
+    font-size: 0.9em;
+  }
+</style>
 </head>
 <body>
-    <h1>Welcome to GreenThread!</h1>
-    <p>Our mission is to promote sustainability by providing a platform for buying and selling used clothes.</p>
-    <p>The website is currently under construction. Thank you for your patience.</p>
-    <a href="/login" class="button dynamic-link">Login</a>
-    <a href="/signup" class="button dynamic-link">Sign Up</a>
-    <script src="../../static/js/main.js"></script> <!-- Ensure the path to your main.js is correct -->
+  <div class="login-modal">
+    <h2>Login</h2>
+    <form action="/login/" method="post">
+        {% csrf_token %}
+      <input type="username" name="username" placeholder="Username" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <div class="checkbox">
+        <label><input type="checkbox" name="remember"> Remember me</label>
+      </div>
+      <input type="submit" value="Login">
+      <div class="register">
+        Don't have an account? <a href="/signup/">Register</a>
+      </div>
+    </form>
+  </div>
 </body>
 </html>
+

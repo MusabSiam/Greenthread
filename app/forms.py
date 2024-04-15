@@ -1,18 +1,10 @@
-"""
-Definition of forms.
-"""
-
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth import get_user_model  # Import get_user_model
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm, PasswordChangeForm
+from django.contrib.auth.models import User  # Correctly import the User model
+from .models import Product
 from django.utils.translation import gettext_lazy as _
-
-# Assuming your custom user model uses 'email' as a field
-User = get_user_model()  # Get the custom user model
-
-
 class BootstrapAuthenticationForm(AuthenticationForm):
-    """Authentication form which uses boostrap CSS."""
+    """Authentication form that utilizes Bootstrap CSS for styling."""
     username = forms.CharField(max_length=254,
                                widget=forms.TextInput({
                                    'class': 'form-control',
@@ -20,18 +12,40 @@ class BootstrapAuthenticationForm(AuthenticationForm):
     password = forms.CharField(label=_("Password"),
                                widget=forms.PasswordInput({
                                    'class': 'form-control',
-                                   'placeholder': 'Password'}))
-
-
-class ContactForm(forms.Form):
-    name = forms.CharField(max_length=100, label='Your Name')
-    email = forms.EmailField(label='Your Email')
-    message = forms.CharField(widget=forms.Textarea, label='Your Message')
-
+                                   'placeholder':'Password'}))
 
 class SignUpForm(UserCreationForm):
+    """Form for user signup, extending Django's UserCreationForm."""
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
 
     class Meta:
-        model = User  # Use the custom user model
+        model = User
         fields = ('username', 'email', 'password1', 'password2',)
+
+class UserUpdateForm(UserChangeForm):
+    """Form for updating user information."""
+    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    username = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = User
+        fields = ('username', 'email')
+
+class PasswordChangingForm(PasswordChangeForm):
+    """Form for changing password."""
+    old_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'type': 'password'}))
+    new_password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'type': 'password'}))
+    new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'type': 'password'}))
+
+    class Meta:
+        model = User
+        fields = ('old_password', 'new_password1', 'new_password2')
+
+
+
+
+#Product Form
+class ProductForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ['name', 'image', 'description', 'category']

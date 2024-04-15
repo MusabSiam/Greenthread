@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit My Profile</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/bootstrap.min.css' %}" />
+    <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="profile">
+            <div class="content">
+                <h1>Edit Profile</h1>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        {{ user_form.username }}
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        {{ user_form.email }}
+                    </div>
+                    <hr>
+                    <h2>Change Password</h2>
+                    <div class="form-group">
+                        <label for="old_password">Old Password:</label>
+                        {{ password_form.old_password }}
+                    </div>
+                    <div class="form-group">
+                        <label for="new_password1">New Password:</label>
+                        {{ password_form.new_password1 }}
+                    </div>
+                    <div class="form-group">
+                        <label for="new_password2">Confirm New Password:</label>
+                        {{ password_form.new_password2 }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'app/scripts/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'app/scripts/bootstrap.min.js' %}"></script>
+</body>
+</html>

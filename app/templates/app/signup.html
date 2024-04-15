@@ -1,45 +1,14 @@
-{% extends "app/layout.html" %}
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'app/content/bootstrap.min.css' %}"> <!-- Assuming you're using Bootstrap -->
-    <style>
-        body {
-            padding-top: 20px;
-        }
-        .form-container {
-            max-width: 500px;
-            margin: auto;
-        }
-    </style>
 </head>
 <body>
-    <div class="container form-container">
-        <h2>Sign Up</h2>
-        {% if form.errors %}
-        <div class="alert alert-danger" role="alert">
-            Please correct the errors below.
-        </div>
-        {% endif %}
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Sign Up</button>
-        </form>
-    </div>
-    
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Bootstrap JS -->
-<script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
-<script src="{% static 'app/scripts/bootstrap.js' %}"></script>
-<script src="{% static 'app/scripts/jquery.validate.js' %}"></script>
-<script src="{% static 'app/scripts/jquery.validate.unobtrusive.js' %}"></script>
-<script src="{% static 'js/main.js' %}"></script>
-
+    <h2>Sign Up</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Sign Up</button>
+    </form>
 </body>
 </html>
