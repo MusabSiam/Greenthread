@@ -94,6 +94,7 @@ def delete_product(request, product_id):
 #My Products
 @login_required
 def show_products(request):#
+
     products = Product.objects.filter(user=request.user)
     return render(request, 'app/show_products.html', {'products': products})
 #
