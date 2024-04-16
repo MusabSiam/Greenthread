@@ -134,6 +134,7 @@ def home_page(request, category_name=None):
 
 @login_required
 def view_profile(request):
+
     """View function for displaying the user profile page."""
     return render(request, 'app/view_profile.html')
 
