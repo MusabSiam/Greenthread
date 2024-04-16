@@ -103,6 +103,7 @@ def home(request):#
 def signup(request):
     """Handles user signup. Upon successful registration, redirects to the home page."""
     if request.method == 'POST':
+
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
