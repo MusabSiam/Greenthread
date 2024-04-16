@@ -146,6 +146,7 @@ def product_category(request, category_name):#
 def editProfile(request):
     """Allows users to edit their profile and password."""
     if request.method == 'POST':
+
         user_form = UserUpdateForm(request.POST, instance=request.user)
         password_form = PasswordChangingForm(data=request.POST, user=request.user)
         if user_form.is_valid() and password_form.is_valid():
