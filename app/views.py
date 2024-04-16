@@ -119,12 +119,14 @@ def home_page(request, category_name=None):
     """Renders the home page, showing the welcome message and user authentication options."""
     if not category_name:
         category_name="women"
+
     
     products = Product.objects.filter(category=category_name)
     return render(request, 'app/HomePage.html', {
         'title': 'Home Page',
         'year': datetime.now().year,
         'products': products
+
     })
 
 @login_required
