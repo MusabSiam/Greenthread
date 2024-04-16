@@ -29,12 +29,12 @@ def send_product_email(product, request):#
 
 def contact_seller(request, product_id):
     product = Product.objects.get(id=product_id)
-
     subject = f"I would like to buy yout product {product.name}"
     body =  f"""Hello, my name is {request.user.username}.
         I saw at GreenThread the product {product.name} that you are selling.
         I would like to buy it,
         if said product is still avilable, please contact me at {request.user.email}"""
+
 
     send_email(product, product.user.email, subject, body)
     return home_page(request) # stay on same page
