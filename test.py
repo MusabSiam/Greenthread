@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from .models import Product
 from .forms import ProductForm, SignUpForm
-class TestViews(TestCase):  
+class TestViews(TestCase): 
     def setUp(self):
         self.client = Client()
         self.home_url = reverse('home')
@@ -14,7 +14,7 @@ class TestViews(TestCase):
         self.home_page_url = reverse('home_page')
         self.view_profile_url = reverse('view_profile')
         self.user = User.objects.create_user(username='testuser', email='test@example.com', password='password123')
-
+#Musab
     def test_home_GET(self):
         response = self.client.get(self.home_url)
         self.assertEqual(response.status_code, 200)
@@ -24,7 +24,7 @@ class TestViews(TestCase):
         response = self.client.get(self.home_page_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'app/HomePage.html')
-
+#Bayan
     def test_signup_GET(self):
         response = self.client.get(self.signup_url)
         self.assertEqual(response.status_code, 200)
@@ -52,7 +52,7 @@ class TestViews(TestCase):
         self.assertFalse(form.is_valid())  # ודא כי הטופס אינו תקף
         self.assertIn('password2', form.errors)  # ודא כי יש שגיאה בשדה password2
 
-
+    #Sara
     def test_view_profile_authenticated(self):
         self.client.login(username='testuser', password='password123')
         response = self.client.get(self.view_profile_url)
@@ -65,6 +65,7 @@ class TestViews(TestCase):
 
 
 class TestProductViews(TestCase):
+    #Bayan
     def setUp(self):
         self.client = Client()
         self.user = User.objects.create_user(username='testuser', email='test@example.com', password='12345')
@@ -84,6 +85,7 @@ class TestProductViews(TestCase):
         #self.assertContains(response, 'Test Product')
 
 class TestAuthenticationViews(TestCase):
+    #Tasneem
     def setUp(self):
         self.client = Client()
         self.home_url = reverse('home')
@@ -101,7 +103,8 @@ class TestAuthenticationViews(TestCase):
         response = self.client.get(self.home_page_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'app/HomePage.html')
-
+        
+#Musab
     def test_signup_GET(self):
         response = self.client.get(self.signup_url)
         self.assertEqual(response.status_code, 200)
@@ -129,13 +132,13 @@ class TestAuthenticationViews(TestCase):
         form = response.context['form']
         self.assertFalse(form.is_valid())
         self.assertIn('password2', form.errors)
-
+    #Sara
     def test_view_profile_authenticated(self):
         self.client.login(username='testuser', password='password123')
         response = self.client.get(self.view_profile_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'app/view_profile.html')
-
+#Tasneem
     def test_view_profile_unauthenticated(self):
         self.client.logout()
         response = self.client.get(self.view_profile_url)
