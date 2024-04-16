@@ -16,6 +16,7 @@ import imghdr
 
 def send_product_email(product, request):#
     email_receiver = request.user.email
+
     subject = "Your Product was added succesfully"
     body = f"""
         Hello {request.user.username},
